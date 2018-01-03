@@ -105,6 +105,8 @@ install_and_cache_deps() {
   info "cding to $assets_dir"
   cd $assets_dir
   if [ -d $cache_dir/node_modules ]; then
+    info "removing assets node modules dir"
+    rm -rf node_modules
     info "making dir node_modules"
     mkdir -p node_modules
     info "cp -r-ing $cache_dir/node_modules/* to node_modules/"
