@@ -102,20 +102,27 @@ install_yarn() {
 
 install_and_cache_deps() {
   info "Installing and caching node modules"
+  info "cding to $assets_dir"
   cd $assets_dir
   if [ -d $cache_dir/node_modules ]; then
+    info "making dir node_modules"
     mkdir -p node_modules
+    info "cp -r-ing $cache_dir/node_modules/* to node_modules/"
     cp -r $cache_dir/node_modules/* node_modules/
   fi
 
   if [ -f "$assets_dir/yarn.lock" ]; then
+    info "installing yarn deps"
     install_yarn_deps
   else
+    info "installing npm deps"
     install_npm_deps
   fi
-
+  
+  info "cp -ring node_modules back to $cache_dir"
   cp -r node_modules $cache_dir
   PATH=$assets_dir/node_modules/.bin:$PATH
+  info "installing bower deps"
   install_bower_deps
 }
 
